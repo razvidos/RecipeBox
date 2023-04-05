@@ -3,6 +3,7 @@ import axios from 'axios'
 
 export const useAuthStore = defineStore('auth', {
     state: () => ({
+        user: null,
         isLoggedIn: false,
     }),
     actions: {
@@ -12,6 +13,13 @@ export const useAuthStore = defineStore('auth', {
                     email,
                     password,
                 })
+                await axios.get('/api/user')
+                    .then(response => {
+                        this.user = response.data;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
                 this.isLoggedIn = true
             } catch (error) {
                 console.error(error)
@@ -39,4 +47,9 @@ export const useAuthStore = defineStore('auth', {
             this.isLoggedIn = false;
         },
     },
+    getters: {
+        user_id() {
+            return this.user.id
+        }
+    }
 })

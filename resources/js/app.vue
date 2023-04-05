@@ -10,7 +10,6 @@
         </v-app-bar>
 
         <v-main>
-            <navBar></navBar>
             <router-view></router-view>
         </v-main>
     </v-app>
@@ -23,11 +22,12 @@ export default {
     components: {navBar,},
     data() {
         return {
-            appName: 'SPA',
+            appName: 'RecipeBox',
         };
     },
     mounted() {
         this.$authStore.isLoggedIn = window.auth_user !== null
+        this.$authStore.user = window.auth_user
     },
     methods: {
         async logout() {
