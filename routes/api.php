@@ -25,3 +25,4 @@ Route::apiResources([
 ]);
 
 Route::get('/categoryList', [CategoryController::class, 'getCategories']);
+Route::get('/searchTypes', [RecipeController::class, 'getSearchTypes']);
