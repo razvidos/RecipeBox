@@ -6,18 +6,57 @@ use App\Http\Requests\StoreRecipeRequest;
 use App\Http\Requests\UpdateRecipeRequest;
 use App\Models\Recipe;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
 class RecipeController extends Controller
 {
+    public const SEARCH_TYPE_SIMPLE = 'simple';
+    public const SEARCH_TYPE_WITH_INGREDIENTS = 'with_ingredients';
+    public const SEARCH_TYPE_DEEP = 'deep';
+
+
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $recipes = Recipe::orderBy('created_at', 'desc')->paginate(10);
+        // Get the query parameters from the request
+        $keyword = $request->query('keyword');
+        $category_id = $request->query('category_id');
+
+        $query = Recipe::query();
+
+        // filter by keyword in recipe table
+        if ($keyword) {
+            $searchType = $request->query('searchType');
+
+            $query->where('title', 'like', "%$keyword%");
+
+            if (static::SEARCH_TYPE_WITH_INGREDIENTS === $searchType) {
+                $query->orWhere('ingredients', 'like', "%{$keyword}%");
+            }
+
+            if (static::SEARCH_TYPE_DEEP === $searchType) {
+                $query->orWhere('description', 'like', "%{$keyword}%")
+                    ->orWhere('ingredients', 'like', "%{$keyword}%")
+                    ->orWhere('instructions', 'like', "%{$keyword}%");
+            }
+
+        }
+
+        // filter by category_id
+        if ($category_id) {
+            $query->whereHas('categories', function ($q) use ($category_id) {
+                $q->where('id', $category_id);
+            });
+        }
+
+        $recipes = $query->orderBy('created_at', 'desc')->paginate(10);
+
         return response()->json($recipes);
     }
 
