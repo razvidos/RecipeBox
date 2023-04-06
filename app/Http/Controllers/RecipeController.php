@@ -54,12 +54,12 @@ class RecipeController extends Controller
     {
         // Get the query parameters from the request
         $keyword = $request->query('keyword');
-        $category_ids = $request->query('category_ids');
+        $categoryIds = $request->query('category_ids');
         $searchType = new SearchTypeEnum($request->input('search_type', SearchTypeEnum::SIMPLE));
 
         $query = Recipe::query();
 
-        $this->filterByKeywordAndCategoryId($query, $keyword, $searchType, $category_ids);
+        $this->filterByKeywordAndCategoryId($query, $keyword, $searchType, $categoryIds);
 
         $recipes = $query->with('categories')->orderBy('created_at', 'desc')->paginate(10);
 
@@ -70,13 +70,13 @@ class RecipeController extends Controller
      * @param Builder $query
      * @param string|null $keyword
      * @param SearchTypeEnum $searchType
-     * @param array|null $category_ids
+     * @param array|null $categoryIds
      */
     private function filterByKeywordAndCategoryId(
         Builder $query,
         ?string $keyword,
         SearchTypeEnum $searchType,
-        ?array $category_ids
+        ?array $categoryIds
     ): void
     {
         // filter by keyword in recipe table
@@ -104,9 +104,9 @@ class RecipeController extends Controller
         }
 
         // filter by category_id
-        if ($category_ids) {
-            $query->whereHas('categories', function ($q) use ($category_ids) {
-                $q->whereIn('id', $category_ids);
+        if ($categoryIds) {
+            $query->whereHas('categories', function ($q) use ($categoryIds) {
+                $q->whereIn('id', $categoryIds);
             });
         }
     }
