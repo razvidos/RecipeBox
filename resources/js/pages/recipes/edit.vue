@@ -99,7 +99,9 @@ export default {
             if (this.form.image) {
                 formData.append("image", this.form.image);
             }
-            formData.append("category_ids[]", this.form.category_ids);
+            [...this.form.category_ids].forEach((categoryId) => {
+                formData.append("category_ids[]", categoryId);
+            });
 
             axios.post(
                 `/api/recipes/${this.$route.params.id}`, formData, {

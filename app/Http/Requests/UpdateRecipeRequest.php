@@ -34,7 +34,7 @@ class UpdateRecipeRequest extends FormRequest
             'instructions' => 'nullable|string',
             'image' => 'nullable|image|max:2048',
             'category_ids' => 'nullable|array',
-            'category_ids.*' => 'nullable|exists:categories,id',
+            'category_ids.*' => 'filled|exists:categories,id',
         ];
     }
 }
