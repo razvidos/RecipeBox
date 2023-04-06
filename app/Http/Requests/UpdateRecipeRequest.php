@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Recipe;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 
@@ -14,7 +15,9 @@ class UpdateRecipeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Gate::allows('update-recipe');
+        $recipeId = $this->route('recipe')->id;
+
+        return Gate::allows('update-recipe', Recipe::findOrFail($recipeId));
     }
 
     /**
@@ -25,7 +28,7 @@ class UpdateRecipeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'nullable|string|max:255',
+            'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'ingredients' => 'nullable|string',
             'instructions' => 'nullable|string',
