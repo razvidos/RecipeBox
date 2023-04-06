@@ -1,37 +1,14 @@
 <template>
     <v-container fluid>
-        <v-row justify="center">
-            <v-spacer/>
-            <v-col>
-                <v-select
-                    v-model="filters.searchType"
-                    :items="filters.searchTypes"
-                    label="Search Type"/>
-            </v-col>
-            <v-col md="4">
-                <v-text-field
-                    v-model="filters.search"
-                    clearable
-                    label="Search"/>
-            </v-col>
-            <v-col md="4">
-                <v-select
-                    v-model="filters.category_ids"
-                    :items="filters.categories"
-                    chips
-                    clearable
-                    item-title="name"
-                    item-value="id"
-                    label="Category"
-                    multiple/>
-            </v-col>
-            <v-col>
-                <v-btn color="primary" @click="searchRecipes">Search</v-btn>
-            </v-col>
-        </v-row>
+        <search-panel :filters="filters" @search-recipes="searchRecipes"/>
 
-        <v-row justify="center">
-            <v-col md="8">
+        <v-card>
+            <v-card-title class="text-h4">
+                Recipes
+                <v-btn color="primary" icon="mdi-plus" @click="$router.push({ name: 'recipes.create' })"/>
+
+            </v-card-title>
+            <v-card-text>
                 <v-list>
                     <v-list-item v-for="recipe in recipes" :key="recipe.id">
                         <v-row>
@@ -59,21 +36,22 @@
 
                     </v-list-item>
                 </v-list>
-            </v-col>
-        </v-row>
-
-        <v-row justify="center">
-            <v-col md="8">
-                <v-pagination v-model="page" :length="totalPages" @update:modelValue="searchRecipes"></v-pagination>
-            </v-col>
-        </v-row>
+            </v-card-text>
+            <v-card-actions>
+                <v-row justify="center">
+                    <v-pagination v-model="page" :length="totalPages" @update:modelValue="searchRecipes"></v-pagination>
+                </v-row>
+            </v-card-actions>
+        </v-card>
     </v-container>
 </template>
 
 <script>
+import SearchPanel from './../../components/recipes/SearchPanel.vue';
+
 export default {
     name: 'RecipeList',
-
+    components: {SearchPanel},
     data() {
         return {
             recipes: [],
