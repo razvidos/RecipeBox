@@ -5,7 +5,10 @@
         <v-card>
             <v-card-title class="text-h4">
                 Recipes
-                <v-btn color="primary" icon="mdi-plus" @click="$router.push({ name: 'recipes.create' })"/>
+                <v-btn
+                    v-if="this.$authStore.isLoggedIn"
+                    color="primary" icon="mdi-plus"
+                    @click="$router.push({ name: 'recipes.create' })"/>
 
             </v-card-title>
             <v-card-text>
@@ -39,7 +42,11 @@
             </v-card-text>
             <v-card-actions>
                 <v-row justify="center">
-                    <v-pagination v-model="page" :length="totalPages" @update:modelValue="searchRecipes"></v-pagination>
+                    <v-pagination
+                        v-model="page"
+                        :length="totalPages"
+                        :total-visible="5"
+                        @update:modelValue="searchRecipes"/>
                 </v-row>
             </v-card-actions>
         </v-card>

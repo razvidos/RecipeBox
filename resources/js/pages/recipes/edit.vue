@@ -82,6 +82,7 @@ export default {
             this.form.ingredients = recipe.ingredients;
             this.form.instructions = recipe.instructions;
             this.form.category_ids = recipe.categories.map(category => category.id);
+            this.imageUrl = recipe.image;
         });
     },
     methods: {
