@@ -5,7 +5,6 @@ namespace App\Policies;
 use App\Models\Recipe;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Auth\Access\Response;
 
 class RecipePolicy
 {
@@ -15,12 +14,11 @@ class RecipePolicy
      * Determine whether the user can store the model.
      *
      * @param User $user
-     * @param Recipe $recipe
-     * @return Response|bool
+     * @return bool
      */
-    public function store(User $user, Recipe $recipe): Response|bool
+    public function store(User $user): bool
     {
-        return $user->id === $recipe->user_id;
+        return $user !== null;
     }
 
     /**
@@ -28,11 +26,11 @@ class RecipePolicy
      *
      * @param User $user
      * @param Recipe $recipe
-     * @return Response|bool
+     * @return bool
      */
-    public function update(User $user, Recipe $recipe): Response|bool
+    public function update(User $user, Recipe $recipe): bool
     {
-        return $user->id === $recipe->user_id;
+        return $user && $user->id === $recipe->user_id;
     }
 
     /**
@@ -40,10 +38,10 @@ class RecipePolicy
      *
      * @param User $user
      * @param Recipe $recipe
-     * @return Response|bool
+     * @return bool
      */
-    public function delete(User $user, Recipe $recipe): Response|bool
+    public function delete(User $user, Recipe $recipe): bool
     {
-        return $user->id === $recipe->user_id;
+        return $user && $user->id === $recipe->user_id;
     }
 }

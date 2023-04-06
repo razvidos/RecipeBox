@@ -105,8 +105,28 @@ class RecipeController extends Controller
     {
         $validated = $request->validated();
 
+        /**
+         * transform null to ''
+         *
+         * JS problem:
+         * FormData.append(<key>, '') transform '' to null
+         */
+        $validated = array_map(static function ($value) {
+            return is_null($value) ? '' : $value;
+        }, $validated);
+
+        if ($request->hasFile('image')) {
+            /** @noinspection NullPointerExceptionInspection */
+            $path = $request->file('image')->store(static::PATH_TO_IMAGE);
+            $validated['image'] = $path;
+        }
+
         $recipe = $request->user()->recipes()->create($validated);
-        $recipe->categories()->sync($validated['category_ids']);
+
+
+        if (!empty($validated['category_ids'])) {
+            $recipe->categories()->sync($validated['category_ids']);
+        }
 
         return response()->json($recipe);
     }
