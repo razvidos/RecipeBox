@@ -10,7 +10,6 @@ use BenSampo\Enum\Exceptions\InvalidEnumMemberException;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
@@ -53,12 +52,10 @@ class RecipeController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        DB::enableQueryLog();
-
         // Get the query parameters from the request
         $keyword = $request->query('keyword');
         $category_ids = $request->query('category_ids');
-        $searchType = new SearchTypeEnum($request->query('searchType'));
+        $searchType = new SearchTypeEnum($request->input('search_type', SearchTypeEnum::SIMPLE));
 
         $query = Recipe::query();
 
@@ -133,12 +130,14 @@ class RecipeController extends Controller
 
         $recipe = $request->user()->recipes()->create($validated);
 
-
         if (!empty($validated['category_ids'])) {
             $recipe->categories()->sync($validated['category_ids']);
+            $recipe->load(['categories' => function ($query) {
+                $query->select('id');
+            }]);
         }
 
-        return response()->json($recipe);
+        return response()->json($recipe, 201);
     }
 
     /**
@@ -188,9 +187,10 @@ class RecipeController extends Controller
      */
     public function destroy(Recipe $recipe): JsonResponse
     {
-        if (Gate::denies('recipe-book', $recipe)) {
+        if (Gate::denies('delete-recipe', $recipe)) {
             abort(403);
         }
+
         $recipe->delete();
         return response()->json(['message' => 'Recipe deleted']);
     }
