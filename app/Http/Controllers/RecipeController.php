@@ -19,6 +19,26 @@ class RecipeController extends Controller
 {
     public const PATH_TO_IMAGE = 'public/images/recipes';
 
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            /**
+             * transform null to ''
+             *
+             * JS problem:
+             * FormData.append(<key>, '') transform '' to null
+             */
+
+            $input = array_map(static function ($value) {
+                return is_null($value) ? '' : $value;
+            }, $request->all());
+
+            $request->replace($input);
+
+            return $next($request);
+        })->only(['store', 'update']);
+    }
+
     public function getSearchTypes(): JsonResponse
     {
         return response()->json(SearchTypeEnum::getValues());
@@ -105,16 +125,6 @@ class RecipeController extends Controller
     {
         $validated = $request->validated();
 
-        /**
-         * transform null to ''
-         *
-         * JS problem:
-         * FormData.append(<key>, '') transform '' to null
-         */
-        $validated = array_map(static function ($value) {
-            return is_null($value) ? '' : $value;
-        }, $validated);
-
         if ($request->hasFile('image')) {
             /** @noinspection NullPointerExceptionInspection */
             $path = $request->file('image')->store(static::PATH_TO_IMAGE);
@@ -165,7 +175,7 @@ class RecipeController extends Controller
         }
 
         $recipe->update($validated);
-        $recipe->categories()->sync($validated['category_ids']);
+        $recipe->categories()->sync($request->input('category_ids'));
 
         return response()->json($recipe);
     }

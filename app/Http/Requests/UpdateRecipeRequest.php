@@ -29,9 +29,9 @@ class UpdateRecipeRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'ingredients' => 'nullable|string',
-            'instructions' => 'nullable|string',
+            'description' => 'sometimes|string',
+            'ingredients' => 'sometimes|string',
+            'instructions' => 'sometimes|string',
             'image' => 'nullable|image|max:2048',
             'category_ids' => 'nullable|array',
             'category_ids.*' => 'filled|exists:categories,id',
