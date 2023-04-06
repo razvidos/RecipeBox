@@ -49,7 +49,7 @@ export const useAuthStore = defineStore('auth', {
     },
     getters: {
         user_id() {
-            return this.user.id
+            return this.user ? this.user.id : null;
         }
     }
 })

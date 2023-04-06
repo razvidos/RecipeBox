@@ -55,7 +55,7 @@ class RecipeController extends Controller
         // Get the query parameters from the request
         $keyword = $request->query('keyword');
         $categoryIds = $request->query('category_ids');
-        $searchType = new SearchTypeEnum($request->input('search_type', SearchTypeEnum::SIMPLE));
+        $searchType = new SearchTypeEnum($request->input('searchType', SearchTypeEnum::SIMPLE));
 
         $query = Recipe::query();
 
