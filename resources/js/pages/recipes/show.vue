@@ -45,7 +45,10 @@
                     class="mr-4"
                     color="danger"
                     v-text="'Edit Recipe'"/>
-
+                <v-btn
+                    v-if="recipe.user_id"
+                    :to="{name: 'users.show', params: {id: recipe.user_id}}"
+                    v-text="'View Author\'s Profile'"/>
             </v-card-actions>
         </v-card>
     </v-container>

@@ -8,6 +8,7 @@ import RecipeShow from "./pages/recipes/show.vue"
 import RecipeCreate from "./pages/recipes/create.vue"
 import RecipeEdit from "./pages/recipes/edit.vue"
 
+import UserShow from "./pages/users/show.vue"
 
 export default createRouter({
     history: createWebHashHistory(),
@@ -52,6 +53,17 @@ export default createRouter({
                     meta: {requiresAuth: true}
                 },
             ]
+        },
+        {
+            path: '/users',
+            children: [
+                {
+                    path: '/users/:id',
+                    name: 'users.show',
+                    component: UserShow,
+                    props: true
+                }
+            ],
         },
         {
             path: '/:pathMatch(.*)',

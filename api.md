@@ -20,6 +20,61 @@ Authorization: Bearer <api_key>
 
 ## Endpoints
 
+### /users
+
+#### GET /users/{id} User Profile
+
+Returns the user's profile information and their recipes, if authorized.
+
+**Request**
+
+```http
+GET /api/recipes/{id}
+```
+
+**Example Response (200)**
+
+- user - an object containing the user's name, email, and ID. If the current user is not authorized to view the profile,
+  the name property will be the only one included.
+- recipes - an array of recipe objects created by the user.
+
+```json
+{
+    "user": {
+        "name": "John Doe",
+        "email": "johndoe@example.com",
+        "id": 1
+    },
+    "recipes": [
+        {
+            "id": 1,
+            "title": "Spaghetti Carbonara",
+            "description": "A delicious Italian pasta dish.",
+            "ingredients": "1 pound spaghetti, 6 strips bacon, 4 cloves garlic, 4 eggs, 1 cup grated Parmesan cheese",
+            "instructions": "1. Cook the spaghetti in a large pot of salted boiling water until al dente... ",
+            "image": "https://example.com/images/spaghetti-carbonara.jpg",
+            "created_at": "2023-04-05T16:25:00.000000Z",
+            "updated_at": "2023-04-05T16:25:00.000000Z"
+        },
+        {
+            "id": 2,
+            "title": "Chocolate Cake",
+            "description": "A rich, moist chocolate cake.",
+            "ingredients": "2 cups all-purpose flour, 2 cups sugar, 3/4 cup unsweetened cocoa powder...",
+            "instructions": "1. Preheat oven to 350°F. Grease and flour two 9-inch round baking pans... ",
+            "image": "https://example.com/images/chocolate-cake.jpg",
+            "created_at": "2023-04-03T12:00:00.000000Z",
+            "updated_at": "2023-04-03T12:00:00.000000Z"
+        }
+    ]
+}
+
+```
+
+**Not Found (404)**
+
+if the recipe with the given ID does not exist.
+
 ### /recipes
 
 #### POST /api/recipes
@@ -98,12 +153,12 @@ Creates a new recipe.
 
 ```json
 {
-  "message": "The given data was invalid.",
-  "errors": {
-    "title": [
-      "The title field is required."
-    ]
-  }
+    "message": "The given data was invalid.",
+    "errors": {
+        "title": [
+            "The title field is required."
+        ]
+    }
 }
 
 ```
@@ -371,7 +426,10 @@ Updates an existing recipe.
 ```json
 {
     "title": "Spaghetti Bolognese",
-    "category_ids": [1, 2]
+    "category_ids": [
+        1,
+        2
+    ]
 }
 ```
 
@@ -419,13 +477,11 @@ GET /api/recipes/searchTypes
 **Example Response (200)**
 
 ```json
-{
-    "data": [
-        "simple",
-        "with_ingredients",
-        "deep"
-    ]
-}
+[
+    "simple",
+    "with_ingredients",
+    "deep"
+]
 ```
 
 The search types are simple, with_ingredients, and deep.
@@ -452,16 +508,14 @@ GET /api/categories
 **Example Response (200)**
 
 ```json
-{
-    "data": [
-        {
-            "id": 1,
-            "name": "Dessert",
-        },
-        {
-            "id": 2,
-            "name": "Main Course",
-        }
-    ]
-}
+ [
+    {
+        "id": 1,
+        "name": "Dessert"
+    },
+    {
+        "id": 2,
+        "name": "Main Course"
+    }
+]
 ```

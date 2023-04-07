@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,6 @@ Route::get('/recipes/searchTypes', [RecipeController::class, 'getSearchTypes']);
 Route::apiResources([
     'recipes' => RecipeController::class
 ]);
-
-Route::get('/categoryList', [CategoryController::class, 'getCategories']);
-Route::get('/searchTypes', [RecipeController::class, 'getSearchTypes']);
+Route::apiResource('users', UserController::class)
+    ->only(['show'])
+    ->middleware('auth:sanctum');
