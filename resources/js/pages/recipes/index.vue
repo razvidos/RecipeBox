@@ -83,7 +83,7 @@ export default {
             this.filters.categories = response.data;
         });
 
-        window.axios.get('/api/searchTypes').then(response => {
+        window.axios.get('/api/recipes/searchTypes').then(response => {
             this.filters.searchTypes = response.data;
         });
 

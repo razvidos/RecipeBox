@@ -120,7 +120,7 @@ Query Parameters
 | per_page        | integer | Count of the results by page.|
 | category_ids (optional)      | array of integers  | An array of integers representing the ids of the categories to filter by. |
 | keyword (optional)      | string  | A string representing the search term. Searches the title field of recipes by default. |
-| searchType (optional)  | string  | (Optional) (optional): An enum representing the search type. Possible values are simple, with_ingredients, and deep. Default value is simple.|
+| searchType (optional)  | string [ENUM](api.md#searchTypes)  | (Optional) (optional): An enum representing the search type. Possible values are simple, with_ingredients, and deep. Default value is simple.|
 
 **Response**
 
@@ -248,6 +248,8 @@ The response also includes pagination information with links to the first, last,
 metadata about the current page, the total number of items, and the number of items per page.
 
 #### GET /recipes/{id}
+
+Get a recipe by id
 
 **Request**
 
@@ -401,5 +403,65 @@ DELETE /recipes/{id}
 ```json
 {
     "message": "Recipe deleted"
+}
+```
+
+#### <a name="searchTypes"></a> GET /searchTypes
+
+Get a list of search types
+
+**Request**
+
+```http
+GET /api/recipes/searchTypes
+```
+
+**Example Response (200)**
+
+```json
+{
+    "data": [
+        "simple",
+        "with_ingredients",
+        "deep"
+    ]
+}
+```
+
+The search types are simple, with_ingredients, and deep.
+
+Based on the searchType value, the method decides which columns to search for the keyword value.
+**Types**
+
+| Type | description |
+|---|---|
+| simple (default) | the search will only be performed on the title column. |
+| with_ingredients | the search will be performed on the title and ingredients columns.  |
+| deep | the search will be performed on the title, description, ingredients, and instructions columns.  |
+
+### GET /categoryList
+
+Returns a list of all categories sorted by name.
+
+**Request**
+
+```http
+GET /api/categories
+```
+
+**Example Response (200)**
+
+```json
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "Dessert",
+        },
+        {
+            "id": 2,
+            "name": "Main Course",
+        }
+    ]
 }
 ```

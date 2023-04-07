@@ -20,6 +20,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/categoryList', [CategoryController::class, 'getCategories']);
+Route::get('/recipes/searchTypes', [RecipeController::class, 'getSearchTypes']);
+
 Route::apiResources([
     'recipes' => RecipeController::class
 ]);
