@@ -6,6 +6,7 @@ Vue.js with Vuetify for UI components.
 
 ## Links
 
+- [About](about.md)
 - [API documentation](api.md)
 - [Demo video](https://www.youtube.com/watch?v=ANSukCZaxRw)
 

@@ -122,7 +122,7 @@ Query Parameters
 | keyword (optional)      | string  | A string representing the search term. Searches the title field of recipes by default. |
 | searchType (optional)  | string  | (Optional) (optional): An enum representing the search type. Possible values are simple, with_ingredients, and deep. Default value is simple.|
 
-##### Response
+**Response**
 
 Returns a JSON object that contains Laravel Paginator data. The JSON response includes the following fields
 
