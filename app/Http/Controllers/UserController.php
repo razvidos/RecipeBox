@@ -14,7 +14,7 @@ class UserController extends Controller
     public function show(User $user): JsonResponse
     {
         $recipes = $user->recipes()->orderByDesc('created_at')->get();
-        $user = $user->id === auth()->user()->id ? $user : ['name' => $user->name];
+        $user = auth()->user() && $user->id === auth()->user()->id ? $user : ['name' => $user->name];
 
         return response()->json([
             'user' => $user,

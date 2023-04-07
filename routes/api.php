@@ -28,5 +28,4 @@ Route::apiResources([
     'recipes' => RecipeController::class
 ]);
 Route::apiResource('users', UserController::class)
-    ->only(['show'])
-    ->middleware('auth:sanctum');
+    ->only(['show']);

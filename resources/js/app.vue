@@ -4,7 +4,7 @@
             <v-toolbar-title>{{ appName }}</v-toolbar-title>
             <v-spacer></v-spacer>
 
-            <v-btn :to="{name: 'recipes.index'}">My Recipes</v-btn>
+            <v-btn :to="{name: 'recipes.index'}">Recipes</v-btn>
             <v-btn v-if="this.$authStore.isLoggedIn" :to="{name: 'users.show', params: {id: this.$authStore.user.id}}"
                    class="mr-6">
                 Profile
