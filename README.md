@@ -4,6 +4,11 @@ The RecipeBox web application is a platform for users to create, store, and shar
 application is built using the Laravel framework with a MySQL database for data storage. The frontend is built using
 Vue.js with Vuetify for UI components.
 
+## Links
+
+- [API documentation](api.md)
+- [Demo video](https://www.youtube.com/watch?v=ANSukCZaxRw)
+
 ## Installation
 
 To run RecipeBox on your local machine, follow these steps:
