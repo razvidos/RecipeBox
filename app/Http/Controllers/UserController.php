@@ -36,9 +36,12 @@ class UserController extends Controller
      *             @OA\Property(property="id", type="integer", example=2),
      *             @OA\Property(property="name", type="string", example="Admin"),
      *             @OA\Property(property="email", type="string", example="admin@gmail.com"),
-     *             @OA\Property(property="email_verified_at", type="string", format="date-time", example="2023-04-06T13:58:12.000000Z"),
-     *             @OA\Property(property="created_at", type="string", format="date-time", example="2023-04-06T13:58:12.000000Z"),
-     *             @OA\Property(property="updated_at", type="string", format="date-time", example="2023-04-06T13:58:12.000000Z")
+     *             @OA\Property(property="email_verified_at", type="string", format="date-time",
+     *      example="2023-04-06T13:58:12.000000Z"),
+     *             @OA\Property(property="created_at", type="string", format="date-time",
+     *      example="2023-04-06T13:58:12.000000Z"),
+     *             @OA\Property(property="updated_at", type="string", format="date-time",
+     *      example="2023-04-06T13:58:12.000000Z")
      *         ),
      *         @OA\Property(
      *             property="recipes",
@@ -52,8 +55,10 @@ class UserController extends Controller
      *                 @OA\Property(property="ingredients", type="string", example=""),
      *                 @OA\Property(property="instructions", type="string", example=""),
      *                 @OA\Property(property="image", type="string", example=""),
-     *                 @OA\Property(property="created_at", type="string", format="date-time", example="2023-04-07T11:26:25.000000Z"),
-     *                 @OA\Property(property="updated_at", type="string", format="date-time", example="2023-04-07T11:26:25.000000Z")
+     *                 @OA\Property(property="created_at", type="string", format="date-time",
+     *      example="2023-04-07T11:26:25.000000Z"),
+     *                 @OA\Property(property="updated_at", type="string", format="date-time",
+     *      example="2023-04-07T11:26:25.000000Z")
      *             )
      *         )
      *     )
@@ -62,7 +67,8 @@ class UserController extends Controller
      *         response=404,
      *         description="User not found",
      *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="No query results for model [App\Models\User] 1")
+     *             @OA\Property(property="message", type="string",
+     *      example="No query results for model [App\Models\User] 1")
      *         )
      *     )
      * )

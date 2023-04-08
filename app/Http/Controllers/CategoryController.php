@@ -6,13 +6,7 @@ use App\Models\Category;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
 
-/**
- * @OA\Info(
- *     title="RecipeBox API",
- *     version="1.0.0",
- *     description="API for managing recipes in RecipeBox"
- * )
- */
+
 class CategoryController extends Controller
 {
 
