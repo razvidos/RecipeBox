@@ -7,7 +7,9 @@ Vue.js with Vuetify for UI components.
 ## Links
 
 - [About](about.md)
-- [API documentation](api.md)
+- [API documentation]
+    - [markdown](api.md)
+    - [openApi](app/Http/Controllers/RecipeController.php)
 - [Demo video](https://www.youtube.com/watch?v=9XGhjNWfvYk)
 
 ## Installation
