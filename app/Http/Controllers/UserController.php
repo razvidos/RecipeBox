@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     /**
      * @OA\Get(
-     *     path="/api/users/{user}",
+     *     path="/users/{user}",
      *     operationId="getUser",
      *     tags={"Users"},
      *     summary="Get user and their recipes",

@@ -13,7 +13,7 @@ class CategoryController extends Controller
     /**
      * Get a list of all categories.
      * @OA\Get(
-     *      path="/api/categoryList",
+     *      path="/categoryList",
      *      operationId="getCategories",
      *      tags={"Categories"},
      *      summary="Get a list of all categories",

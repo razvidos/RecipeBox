@@ -215,7 +215,7 @@ class RecipeController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/api/recipes/searchTypes",
+     *     path="/recipes/searchTypes",
      *     summary="Get search types",
      *     description="Get a list of available search types for recipes.",
      *     tags={"Recipes"},
@@ -241,7 +241,7 @@ class RecipeController extends Controller
     /**
      * Display a listing of the resource.
      * @OA\Get(
-     *     path="/api/recipes",
+     *     path="/recipes",
      *     tags={"Recipes"},
      *     summary="Get a paginated list of all recipes, optionally filtered by keyword, category IDs,
      * and search type.",
@@ -349,7 +349,7 @@ class RecipeController extends Controller
     /**
      * Store a newly created resource in storage.
      * @OA\Post(
-     *     path="/api/recipes",
+     *     path="/recipes",
      *     summary="Create a new recipe",
      *     description="Create a new recipe.",
      *     tags={"Recipes"},
@@ -409,7 +409,7 @@ class RecipeController extends Controller
      * Display the specified resource.
      *
      * @OA\Get(
-     *     path="/api/recipes/{recipe}",
+     *     path="/recipes/{recipe}",
      *     summary="Get a recipe",
      *     description="Retrieve a recipe by ID.",
      *     tags={"Recipes"},
@@ -452,7 +452,7 @@ class RecipeController extends Controller
      * Update the specified resource in storage.
      *
      * @OA\Put(
-     *     path="/api/recipes/{recipeId}",
+     *     path="/recipes/{recipeId}",
      *     operationId="updateRecipe",
      *     summary="Update a recipe",
      *     description="Update a recipe with the given ID.",
@@ -524,7 +524,7 @@ class RecipeController extends Controller
      * Remove the specified resource from storage.
      *
      * @OA\Delete(
-     *     path="/api/recipes/{recipe}",
+     *     path="/recipes/{recipe}",
      *     tags={"Recipes"},
      *     summary="Delete a recipe",
      *     description="Delete the specified recipe if the authenticated user is the owner.",
